@@ -10,12 +10,12 @@ class CartController extends Controller
 { 
     public function index(Request $request): View 
     { 
-        $products = []; //this simulates the database 
+        $products = [];
         $products[121] = ['name' => 'Tv samsung', 'price' => '1000']; 
         $products[11] = ['name' => 'Iphone', 'price' => '2000']; 
  
         $cartProducts = []; 
-        $cartProductData = $request->session()->get('cart_product_data'); //we get the products stored in session 
+        $cartProductData = $request->session()->get('cart_product_data');
         if ($cartProductData) { 
             foreach (array_keys($cartProductData) as $key) { 
                 if (isset($products[$key])) { 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -31,18 +33,15 @@ class ProductController extends Controller
 
     public function create(): View
     {
-        $viewData = []; // to be sent to the view
+        $viewData = [];
         $viewData['title'] = 'Create product';
 
         return view('product.create')->with('viewData', $viewData);
     }
 
-    public function save(Request $request): \Illuminate\Http\RedirectResponse
+    public function save(StoreProductRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-        ]);
+        $request->validated();
         Product::create($request->only(['name', 'price']));
 
         return back();
